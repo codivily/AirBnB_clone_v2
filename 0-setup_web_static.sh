@@ -28,3 +28,5 @@ sudo sed -i \
 # enable default site
 sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
+# restart nginx server
+sudo service nginx restart
