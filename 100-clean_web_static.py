@@ -86,6 +86,11 @@ def do_clean(number=0):
     """Deletes out-of-date archives, using the function do_clean"""
     import os
 
+    # files to delete
+    number = int(number)
+    if number <= 0:
+        number = 1
+
     dirpath = os.path.realpath('versions')
 
     # read file names
@@ -93,18 +98,13 @@ def do_clean(number=0):
                  if os.path.isfile(os.path.join(dirpath, s))]
     filenames = sorted(filenames, reverse=True)
 
-    # files to delete
-    number = int(number)
-    if number <= 0:
-        number = 1
-
-    filenames = filenames[number:]
-    remote_dirpaths = [
-            '/data/web_static/releases/'
-            + os.path.splitext(filename)[0] for filename in filenames]
-
-    for filename in filenames:
+    # cleaup local filers
+    for filename in filenames[number:]:
         os.remove('versions/' + filename)
 
-    for remote_dirpath in remote_dirpaths:
-        sudo('rm -rf ' + remote_dirpath)
+    # clean update remote server
+    remote_dirpaths = run('ls /data/web_static/releases/').split()
+    remote_dirpaths = sorted(remote_dirpaths, reverse=True)
+
+    for remote_dirpath in remote_dirpaths[number:]:
+        sudo('rm -r /data/web_static/releases/' + remote_dirpath)
