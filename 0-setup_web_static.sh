@@ -20,9 +20,9 @@ sudo ln -sf "/data/web_static/releases/test" "/data/web_static/current"
 sudo chown -R ubuntu:ubuntu "/data"
 
 # update nginx configuration
-
+sudo sed -i "s/^.*location \/hbtn_static.*//" /etc/nginx/sites-available/default
 sudo sed -i \
-	"s/^}$/\tlocation \/hbtn_static \{\n\t\talias \/data\/web_static\/current\/;\n\t\tautoindex off;\n\t\}\n\}/" \
+	"s/^}$/\tlocation \/hbtn_static \{ alias \/data\/web_static\/current\/; \}\n\}/" \
 	/etc/nginx/sites-available/default
 
 # enable default site
