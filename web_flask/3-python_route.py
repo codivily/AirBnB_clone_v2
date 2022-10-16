@@ -23,7 +23,7 @@ def cisfun(text):
 
 
 @app.route('/python/<text>', strict_slashes=False)
-@app.route('/python')
+@app.route('/python', strict_slashes=False)
 def pythoniscool(text='is cool'):
     if not text:
         text = 'is cool'
