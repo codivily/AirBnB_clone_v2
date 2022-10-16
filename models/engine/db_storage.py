@@ -72,3 +72,7 @@ class DBStorage:
         from models.review import Review"""
 
         Base.metadata.create_all(self.__engine)
+
+    def close(self):
+        """Close the database connection"""
+        self.__session.close()
