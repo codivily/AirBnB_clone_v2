@@ -28,9 +28,6 @@ class BaseModel:
                 kwargs['updated_at'] = datetime.strptime(
                                             kwargs['updated_at'],
                                             '%Y-%m-%dT%H:%M:%S.%f')
-            else:
-                kwargs['updated_at'] = datetime.now()
-
             if 'created_at' in kwargs:
                 kwargs['created_at'] = datetime.strptime(
                                             kwargs['created_at'],
@@ -63,7 +60,11 @@ class BaseModel:
         dictionary.update(self.__dict__)
         dictionary.update({'__class__':
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
-        dictionary['created_at'] = self.created_at.isoformat()
-        dictionary['updated_at'] = self.updated_at.isoformat()
+
+        if hasattr(self, 'created_at'):
+            dictionary['created_at'] = self.created_at.isoformat()
+
+        if hasattr(self, 'updated_at'):
+            dictionary['updated_at'] = self.updated_at.isoformat()
         dictionary.pop('_sa_instance_state', None)
         return dictionary

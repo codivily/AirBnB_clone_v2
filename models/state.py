@@ -21,4 +21,5 @@ if os.environ.get('HBNB_TYPE_STORAGE') != 'db':
         from models import storage
         State.id = self.id
         return storage.cities()
-    State.cities = cities
+
+    State.cities = property(lambda self: cities(self))
