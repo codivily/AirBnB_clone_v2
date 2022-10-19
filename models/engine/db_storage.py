@@ -18,6 +18,10 @@ class DBStorage:
 
     def __init__(self):
         """Initialize the db engine"""
+        self.initialize()
+
+    def initialize(self):
+        """Initialize the db engine"""
         from sqlalchemy import (create_engine)
         self.__engine = create_engine(
                 'mysql+mysqldb://{}:{}@{}/{}'.format(
@@ -76,3 +80,4 @@ class DBStorage:
     def close(self):
         """Close the database connection"""
         self.__session.close()
+        self.initialize()
