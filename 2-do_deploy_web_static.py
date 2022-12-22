@@ -58,6 +58,14 @@ def do_deploy(archive_path):
     if r.stderr:
         return False
 
+    r = sudo('mv {} {}'.format(
+            remote_to_xfolder + '/web_static/*', remote_to_xfolder))
+
+    if r.stderr:
+        return False
+
+    r = sudo('rm -rf {}'.format(remote_to_xfolder + '/web_static'))
+
     # remote archive file
     r = sudo('rm ' + remote_archive)
     if r.stderr:
@@ -66,7 +74,6 @@ def do_deploy(archive_path):
     # update deploy symbolink link
 
     sudo('rm -f /data/web_static/current')
-    sudo('ln -sf {} {}'.format(
-        remote_to_xfolder + '/web_static', '/data/web_static/current'))
+    sudo('ln -sf {} {}'.format(remote_to_xfolder, '/data/web_static/current'))
 
     return True
