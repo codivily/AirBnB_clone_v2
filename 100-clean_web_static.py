@@ -98,7 +98,7 @@ def do_clean(number=0):
                  if os.path.isfile(os.path.join(dirpath, s))]
     filenames = sorted(filenames, reverse=True)
 
-    # cleaup local filers
+    # cleaup local files
     for filename in filenames[number:]:
         os.remove('versions/' + filename)
 
