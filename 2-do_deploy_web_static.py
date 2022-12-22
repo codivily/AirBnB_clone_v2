@@ -4,7 +4,7 @@ the web_static folder ofr your AirBnB clone repo"""
 from fabric.api import *
 
 
-env.hosts = ['44.200.63.37', '18.206.15.67']
+env.hosts = ['107.23.209.127', '54.237.42.222']
 
 
 def do_pack():
